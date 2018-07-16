@@ -1,6 +1,8 @@
 class ShopsController < ApplicationController
   def index
-    shops = YelpApiWrapper.list_coffeeshops
+    latitude = params[:latitude]
+    longitude = params[:longitude]
+    shops = YelpApiWrapper.list_coffeeshops(latitude, longitude)
     render json: shops.as_json
   end
 
