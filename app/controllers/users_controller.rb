@@ -1,7 +1,12 @@
 class UsersController < ApplicationController
   def create
-    user = User.create!(allowed_params)
-    render json: user
+    user = User.new(allowed_params)
+    if user.save
+      render json: user
+    else
+      render json: { ok: false, errors: user.errors },
+      status: :bad_request
+    end
   end
 
   def sign_in
