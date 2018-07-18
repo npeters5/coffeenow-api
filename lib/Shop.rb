@@ -1,14 +1,16 @@
 class Shop
 
-  attr_reader :name, :id, :image_url
+  attr_reader :name, :id, :image_url, :url, :rating, :latitude, :longitude
 
-  def initialize(name, id, image_url, options = {} )
+  def initialize(name, id, image_url, url, rating, latitude, longitude )
     raise ArgumentError if name.nil? || name == "" || id.nil? || id == ""
     @name = name
     @id = id
     @image_url = image_url
-
-    @rating = options[:rating]
+    @url = url
+    @rating = rating
+    @latitude = latitude
+    @longitude = longitude
   end
 
 end

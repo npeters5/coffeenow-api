@@ -11,7 +11,7 @@ class YelpApiWrapper
     shops_list = []
     if response["businesses"]
       response["businesses"].each do |business|
-        shops_list << Shop.new(business["name"], business["id"], business["image_url"])
+        shops_list << Shop.new(business["name"], business["id"], business["image_url"], business["url"], business["rating"], business["coordinates"]["latitude"], business["coordinates"]["longitude"])
       end
     # else
     #   p response
