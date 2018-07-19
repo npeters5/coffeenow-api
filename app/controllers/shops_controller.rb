@@ -7,5 +7,8 @@ class ShopsController < ApplicationController
   end
 
   def show
+    shop_id = params[:id]
+    shop = YelpApiWrapper.get_shop_detail(shop_id)
+    render json: shop.as_json
   end
 end
