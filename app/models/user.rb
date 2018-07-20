@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  has_many :favorites
+
   before_validation :generate_api_token
   validates :api_token, presence: true
   validates :email, presence: true
