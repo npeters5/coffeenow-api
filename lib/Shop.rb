@@ -9,8 +9,7 @@ class Shop
     @image_url = image_url
     @url = url
     @rating = rating
-    @latitude = latitude
-    @longitude = longitude
+    @coords = {latitude: latitude, longitude: longitude}
   end
 
 end
