@@ -11,6 +11,14 @@ class User < ApplicationRecord
     super.except('password')
   end
 
+  def favorited?(shop)
+    favorites
+      .detect do |favorite|
+        favorite.shop_id == shop.id
+      end
+      .present?
+  end
+
 
   private
 
