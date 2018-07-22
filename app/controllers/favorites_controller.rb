@@ -1,5 +1,3 @@
-require 'pry'
-
 class FavoritesController < ApplicationController
   before_action :require_user!
 
