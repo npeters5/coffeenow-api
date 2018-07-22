@@ -1,19 +1,20 @@
-class FavoritesController < ApplicationController
+require 'pry'
 
-  before_action :require_user!, only: %i[index]
+class FavoritesController < ApplicationController
+  before_action :require_user!
 
   def index
     render json: current_user.favorites
   end
 
   def create
-    user = find_current_user_from_request_header
-    fav = Favorite.new(shop_id: params[:shop_id], user_id: user.id)
+    fav = Favorite.new(fav_params.merge(user_id: current_user.id))
+
     if fav.save
       render json: fav
     else
       render json: { ok: false, errors: fav.errors },
-      status: :bad_request
+        status: :bad_request
     end
   end
 
@@ -22,15 +23,7 @@ class FavoritesController < ApplicationController
 
   private
 
-  def find_current_user_from_request_header
-    User.find_by(api_token: api_token)
-  end
-
-  def api_token
-    request.headers['X-Api-Token']
-  end
-
   def fav_params
-    params.require(:favorite).permit(:shop_id, :user_id)
+    params.require(:favorite).permit(:shop_id)
   end
 end

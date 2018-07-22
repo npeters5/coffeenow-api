@@ -1,19 +1,44 @@
 require "test_helper"
 
 describe FavoritesController do
-  it "should get index" do
-    get favorites_index_url
-    value(response).must_be :success?
-  end
+  describe 'create' do
+    describe 'signed in' do
+      let :user do
+        User.create(email: "email.com", password: "test")
+      end
 
-  it "should get create" do
-    get favorites_create_url
-    value(response).must_be :success?
-  end
+      it 'creates new favorite' do
+        post favorites_url,
+          headers: { 'X-Api-Token' => user.api_token },
+          params: {
+            favorite: {
+              shop_id: "FVzl8rDPiTWEtrNEuCu-Xg",
+            }
+          }
 
-  it "should get destroy" do
-    get favorites_destroy_url
-    value(response).must_be :success?
-  end
+        favorite = JSON.parse(response.body)
 
+        assert_equal('200', response.code)
+        assert_equal("FVzl8rDPiTWEtrNEuCu-Xg", favorite['shop_id'])
+
+      end
+
+      it 'does not create new favorite if shop id is nil' do
+        post favorites_url,
+          headers: { 'X-Api-Token' => user.api_token },
+          params: {
+            favorite: {
+              shop_id: nil,
+            }
+          }
+
+        errors = JSON.parse(response.body)
+
+        assert_equal('400', response.code)
+        assert errors["errors"].size > 0
+        assert_equal(0, Favorite.count)
+      end
+    end
+
+  end
 end

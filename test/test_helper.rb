@@ -15,6 +15,8 @@ Minitest::Reporters.use!(
   Minitest.backtrace_filter
 )
 
+DatabaseCleaner.strategy = :transaction
+
 
 # To add Capybara feature tests add `gem "minitest-rails-capybara"`
 # to the test group in the Gemfile and uncomment the following:
@@ -25,6 +27,12 @@ Minitest::Reporters.use!(
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
   # Add more helper methods to be used by all tests here...
+  def setup
+    DatabaseCleaner.start
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
 end
