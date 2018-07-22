@@ -7,7 +7,6 @@ class FavoritesController < ApplicationController
 
   def create
     fav = Favorite.new(fav_params.merge(user_id: current_user.id))
-
     if fav.save
       render json: fav
     else
