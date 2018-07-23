@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :favorites
-  
+  resources :favorites, only: [:index, :create]
+
+  delete '/favorite', to: 'favorites#destroy', as: 'favorite'
+
   get '/shops', to: 'shops#index'
   get 'shops/:id/show', to: 'shops#show', as: 'shop'
 

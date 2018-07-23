@@ -16,6 +16,13 @@ class FavoritesController < ApplicationController
   end
 
   def destroy
+    fav = Favorite.find_by(fav_params.merge(user_id: current_user.id))
+    if fav.destroy
+      render json: :no_content, status: :no_content
+      p "favorite destroyed"
+    else
+      render json: { ok: false, errors: fav.errors }, status: :bad_request
+    end
   end
 
   private
