@@ -1,5 +1,4 @@
 require 'httparty'
-require 'pry'
 
 class YelpApiWrapper
   URL = "https://api.yelp.com/v3/businesses"

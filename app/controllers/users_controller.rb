@@ -1,16 +1,18 @@
-require 'pry'
-
 class UsersController < ApplicationController
   def create
+    puts "inside users create"
     user = User.new(allowed_params)
+    puts "inside users create after User.new"
     if User.exists?(email: allowed_params["email"])
       render json: { ok: false, errors: "User already exists" },
       status: :bad_request
+      puts "inside users create, where user already exists"
     elsif user.save
       render json: user
     else
       render json: { ok: false, errors: user.errors },
       status: :bad_request
+      puts "inside users create, where user already exists"
     end
   end
 

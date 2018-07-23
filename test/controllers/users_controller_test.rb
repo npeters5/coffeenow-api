@@ -1,5 +1,4 @@
 require "test_helper"
-require 'pry'
 
 describe UsersController do
   describe '#create' do
@@ -15,7 +14,6 @@ describe UsersController do
       user = JSON.parse(response.body)
       # assert_equal(user["errors"]["password"]["can't be blank"])
       # user.must_raise("can't be blank")
-      # binding.pry
     end
 
     it 'should not signup without email'
